@@ -1,4 +1,4 @@
-import { IsEmail, IsInt, IsNotEmpty, IsString } from "class-validator"
+import { IsInt, IsNotEmpty, IsString, Length } from "class-validator"
 
 export class CreateReportDTO{
     @IsNotEmpty({message: 'Nome não pode ficar vazio'})
@@ -9,9 +9,10 @@ export class CreateReportDTO{
     @IsInt({message: 'Matricula precisa um número'})
     registration: number
 
-    @IsNotEmpty({message: 'Email não pode ficar vazio'})
-    @IsEmail()
-    email: string
+    @IsNotEmpty({message: 'Título não pode ficar vazio'})
+    @IsString({message: 'Título precisa uma string'})
+    @Length(1,50,{message: 'Título precisa ter no máximo 50 caracteres'})
+    title: string
 
     @IsNotEmpty({message: 'Descrição não pode ficar vazio'})
     @IsString({message: 'Descrição precisa uma string'})
