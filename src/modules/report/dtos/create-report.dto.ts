@@ -21,4 +21,6 @@ export class CreateReportDTO{
     @IsNotEmpty({message: 'Sistema não pode ficar vazio'})
     @IsString({message: 'Sistema precisa uma string'})
     system: string
+
+    user_story_id?: number;
 }
