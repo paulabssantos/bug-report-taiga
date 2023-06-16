@@ -10,7 +10,7 @@ export class CreateReportService {
         const userStory: CreateUserStoryDTO = {
             description: `Nome: ${createReportDto.name}\nMatrícula: ${createReportDto.registration}\nDescrição do problema: ${createReportDto.description}\n`,
             project: 808519,
-            subject: createReportDto.title,
+            subject: `[${createReportDto.registration}] ${createReportDto.title}`,
             tags: [
                 createReportDto.system,
             ]
