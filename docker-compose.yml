@@ -4,7 +4,8 @@ services:
     container_name: mongodb_bug_report_container
     image: mongo
     ports:
-      - 17000:27017
+      - ${DB_PORT}:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
