@@ -1,4 +1,5 @@
 import { taiga_instance } from "src/config/taiga-axios";
+import { TaigaException } from "src/shared/errors/taiga-exception";
 
 export interface CreateUserStoryDTO {
     description: string,
@@ -8,11 +9,17 @@ export interface CreateUserStoryDTO {
 }
 
 export const createUserStory = async (userStory: CreateUserStoryDTO) => {
-    const response = await taiga_instance.post("userstories",userStory)
-    return response.data
+    return await taiga_instance.post("userstories",userStory).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        throw new TaigaException(err.response.status,err.response.statusText)
+    })
 }
 
 export const listUserStory = async (done: boolean) =>{
-    const response = await taiga_instance.get(`userstories?project=${process.env.TAIGA_PROJECT}&is_closed=${done}`)
-    return response.data
+  return await taiga_instance.get(`userstories?project=${process.env.TAIGA_PROJECT}&is_closed=${done}`).then((res)=>{
+        return res.data
+    }).catch((err)=>{
+        throw new TaigaException(err.response.status,err.response.statusText)
+    })
 }
