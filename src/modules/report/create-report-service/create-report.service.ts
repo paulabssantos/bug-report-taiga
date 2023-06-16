@@ -9,7 +9,7 @@ export class CreateReportService {
     async execute(createReportDto: CreateReportDTO){
         const userStory: CreateUserStoryDTO = {
             description: `Nome: ${createReportDto.name}\nMatrícula: ${createReportDto.registration}\nDescrição do problema: ${createReportDto.description}\n`,
-            project: 808519,
+            project: Number(process.env.TAIGA_PROJECT),
             subject: `[${createReportDto.registration}] ${createReportDto.title}`,
             tags: [
                 createReportDto.system,
