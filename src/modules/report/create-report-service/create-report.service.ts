@@ -6,17 +6,17 @@ import { ReportRepository } from 'src/shared/infra/database/mongodb/repositories
 @Injectable()
 export class CreateReportService {
     constructor(private reportRepository: ReportRepository){}
-    async execute(createReportDto: CreateReportDTO){
+    async execute(createReportDto: CreateReportDTO, file: Express.Multer.File, token: string){
         const userStory: CreateUserStoryDTO = {
-            description: `Nome: ${createReportDto.name}\nMatrícula: ${createReportDto.registration}\nDescrição do problema: ${createReportDto.description}\n`,
+            description: `Email: ${createReportDto.email}\nDescrição do problema: ${createReportDto.description}\n`,
             project: Number(process.env.TAIGA_PROJECT),
-            subject: `[${createReportDto.registration}] ${createReportDto.title}`,
+            subject: `[${createReportDto.email.toString().split('@')[0]}] ${createReportDto.title}`,
             tags: [
                 createReportDto.system,
             ]
         }
-        await createUserStory(userStory).then(async (res)=>{
-            const createReportInDatabase = Object.assign(createReportDto,{user_story_id: res.id})
+        await createUserStory(userStory,token).then(async (res)=>{
+            const createReportInDatabase = Object.assign(createReportDto,{user_story_id: res.id, image_path: file ? file.path : null })
             return await this.reportRepository.create(createReportInDatabase)
         })
     }
