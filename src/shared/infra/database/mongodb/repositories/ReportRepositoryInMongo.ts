@@ -9,8 +9,8 @@ import { UpdateReportDTO } from "src/modules/report/dtos/update-report.dto";
 @Injectable()
 export class ReportRepositoryInMongo implements ReportRepository{
     constructor(@InjectModel(Report.name) private reportModel: Model<Report>){}
-    async list(registration: number, done: boolean): Promise<Report[]> {
-        return await this.reportModel.find({registration, done})
+    async list(email: string, done: boolean): Promise<Report[]> {
+        return await this.reportModel.find({email, done})
     }
     async updateDone(data: UpdateReportDTO): Promise<void> {
         await this.reportModel.updateMany({user_story_id: data.id},{$set: {done: data.done}})

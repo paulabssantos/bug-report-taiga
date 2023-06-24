@@ -9,7 +9,7 @@ export class Report {
   name: string;
 
   @Prop()
-  registration: number;
+  email: string;
 
   @Prop()
   title: string;
@@ -28,6 +28,9 @@ export class Report {
 
   @Prop({default: dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')})
   date: Date
+
+  @Prop()
+  image_path: string;
 
 }
 
