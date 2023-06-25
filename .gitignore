@@ -37,3 +37,4 @@ lerna-debug.log*
 .env
 uploads/*
 !uploads/.gitkeep 
+mongo_db

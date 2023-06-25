@@ -2,7 +2,10 @@ version: '3.9'
 services:
   mongodb_bug_report:
     container_name: mongodb_bug_report_container
-    image: mongo
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./mongo_db:/data/db/
     ports:
       - ${DB_PORT}:27017
     environment:
