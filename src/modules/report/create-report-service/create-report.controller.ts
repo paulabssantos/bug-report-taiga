@@ -11,7 +11,7 @@ export class CreateReportController {
     @Post()
     @UseInterceptors(FileInterceptor('file', multerConfig))
     create(@Request() req, @Body() createReportDto: CreateReportDTO, @UploadedFile() file: Express.Multer.File ){
-        const token  = req.cookies['taiga-token']
+        const token  = req.headers['taiga-token']
         return this.createReportService.execute(createReportDto,file,token)
     }
 }

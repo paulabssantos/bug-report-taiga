@@ -7,7 +7,7 @@ export class ListReportController {
 
     @Post('/:email')
     async create(@Request() req, @Param('email') email: string, @Query() data: {done: boolean}) {
-        const token = req.cookies['taiga-token']
+        const token = req.headers['taiga-token']
         return await this.listReportService.execute(email, data.done, token)
     }
 }
