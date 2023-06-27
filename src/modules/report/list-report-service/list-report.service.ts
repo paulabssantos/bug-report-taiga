@@ -6,9 +6,9 @@ import { ReportRepository } from 'src/shared/infra/database/mongodb/repositories
 @Injectable()
 export class ListReportService {
     constructor(private reportRepository: ReportRepository) { }
-    async execute(email: string, done: boolean, token: string) {
-        if(!email || !done){
-            throw new HttpException('Email e status de reports é obrigatório',HttpStatusCode.BadRequest)
+    async execute(email: string, token: string) {
+        if(!email){
+            throw new HttpException('Email é obrigatório',HttpStatusCode.BadRequest)
         }
         let userReportsDone = []
         const userStoriesDone = await listUserStory(true, token)
@@ -21,7 +21,7 @@ export class ListReportService {
                 await this.reportRepository.updateDone(userReportDone)
         })
 
-        const reports = await this.reportRepository.list(email,done)
+        const reports = await this.reportRepository.list(email)
 
         return reports
     }
