@@ -4,6 +4,6 @@ import { Report } from "../schemas/report.schema";
 
 export abstract class ReportRepository{
     abstract create(data: CreateReportDTO):Promise<void>
-    abstract list(email: string, done: boolean):Promise<Report[]>
+    abstract list(email: string):Promise<Report[]>
     abstract updateDone(data: UpdateReportDTO): Promise<void>
 }
