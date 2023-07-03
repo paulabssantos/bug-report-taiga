@@ -20,10 +20,7 @@ export class Report {
   @Prop()
   system: string;
 
-  @Prop()
-  user_story_id: number;
-
-  @Prop({default: false})
+  @Prop({ default: false })
   done: boolean
 
   @Prop({default: dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')})
