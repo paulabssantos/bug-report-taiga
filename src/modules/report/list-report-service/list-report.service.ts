@@ -7,20 +7,20 @@ import { ReportRepository } from 'src/shared/infra/database/mongodb/repositories
 export class ListReportService {
     constructor(private reportRepository: ReportRepository) { }
     async execute(email: string, token: string) {
-        if(!email){
-            throw new HttpException('Email é obrigatório',HttpStatusCode.BadRequest)
+        if (!email) {
+            throw new HttpException('Email é obrigatório', HttpStatusCode.BadRequest)
         }
         let userReportsDone = []
         const userStoriesDone = await listUserStory(true, token)
-        await userStoriesDone.find((userStory)=>{
-            if(userStory.subject.split(']')[0].slice(1) == email.split('@')[0]){
-                userReportsDone.push({done: userStory.is_closed, id: userStory.id})
-            } 
-        })
-        userReportsDone.forEach(async (userReportDone)=>{
-                await this.reportRepository.updateDone(userReportDone)
-        })
+        if (userStoriesDone.length > 0) {
+            await userStoriesDone.find((userStory) => {
+                if (userStory.subject.split(']')[0].slice(1) == email.split('@')[0]) {
+                    userReportsDone.push({id: userStory.subject.split(']')[1].slice(1)})
+                }
+            })
+            await this.reportRepository.updateDone(userReportsDone)
 
+        }
         const reports = await this.reportRepository.list(email)
 
         return reports
