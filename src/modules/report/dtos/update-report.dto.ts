@@ -1,4 +1,4 @@
 export class UpdateReportDTO{
-    id: number;
+    id: string;
     done: boolean;
 }
