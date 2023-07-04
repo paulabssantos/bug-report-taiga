@@ -19,7 +19,10 @@ export class CreateReportService {
                     createReportDto.system,
                 ]
             }
-            await createUserStory(userStory, token)
+            try {
+                await createUserStory(userStory, token)
+            } catch (error) {
+            }
         })
     }
 }

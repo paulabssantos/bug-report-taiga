@@ -12,7 +12,6 @@ export const login = async() =>{
     return await taiga_instance.post('auth',{password: process.env.TAIGA_USER_PASSWORD, type: "normal", username: process.env.TAIGA_USER}).then((res)=>{
         return res.data
     }).catch((err)=>{
-        throw new TaigaException(err.response.status,err.response.statusText)
     })
 }
 
@@ -20,7 +19,6 @@ export const refreshToken = async(token: string) =>{
     return await taiga_instance.post('auth/refresh',{refresh: token}).then((res)=>{
         return res.data
     }).catch((err)=>{
-        throw new TaigaException(err.response.status,err.response.statusText)
     })
 }
 export const createUserStory = async (userStory: CreateUserStoryDTO, token: string) => {
@@ -31,7 +29,6 @@ export const createUserStory = async (userStory: CreateUserStoryDTO, token: stri
     }).then((res)=>{
         return res.data
     }).catch((err)=>{
-        throw new TaigaException(err.response.status,err.response.statusText)
     })
 }
 
@@ -43,6 +40,5 @@ export const listUserStory = async (done: boolean, token: string) =>{
 }).then((res)=>{
         return res.data
     }).catch((err)=>{
-        throw new TaigaException(err.response.status,err.response.statusText)
     })
 }

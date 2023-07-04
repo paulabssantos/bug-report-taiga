@@ -10,16 +10,19 @@ export class ListReportService {
         if (!email) {
             throw new HttpException('Email é obrigatório', HttpStatusCode.BadRequest)
         }
-        let userReportsDone = []
-        const userStoriesDone = await listUserStory(true, token)
-        if (userStoriesDone.length > 0) {
-            await userStoriesDone.find((userStory) => {
-                if (userStory.subject.split(']')[0].slice(1) == email.split('@')[0]) {
-                    userReportsDone.push({id: userStory.subject.split(']')[1].slice(1)})
-                }
-            })
-            await this.reportRepository.updateDone(userReportsDone)
+        try {
+            let userReportsDone = []
+            const userStoriesDone = await listUserStory(true, token)
+            if (userStoriesDone.length > 0) {
+                await userStoriesDone.find((userStory) => {
+                    if (userStory.subject.split(']')[0].slice(1) == email.split('@')[0]) {
+                        userReportsDone.push({ id: userStory.subject.split(']')[1].slice(1) })
+                    }
+                })
+                await this.reportRepository.updateDone(userReportsDone)
 
+            }
+        } catch (error) {
         }
         const reports = await this.reportRepository.list(email)
 
