@@ -30,7 +30,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: ". , !node_modules"
-          target: "~/tutilabs/bug_report/bug_report_backend"
+          target: "~/bug_report/bug_report_backend"
           
       - name : Update API
         uses: appleboy/ssh-action@master
@@ -40,7 +40,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: 
-            cd ~/tutilabs/bug_report/bug_report_backend && docker-compose up -d         
+            cd ~/bug_report/bug_report_backend && docker-compose up -d         
           
           
           
