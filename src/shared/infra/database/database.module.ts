@@ -10,9 +10,10 @@ import { Report, ReportSchema } from './mongodb/schemas/report.schema';
   imports: [MongooseModule.forRootAsync({
     inject: [ConfigService],
     useFactory: async (config: ConfigService) => ({
+      dbName: config.get<string>('DB_NAME'),
       uri: config.get<string>('DATABASE_URL'),
     })
-  }),MongooseModule.forFeature([{ name: Report.name, schema: ReportSchema }])],
+  }),MongooseModule.forFeature([{ name: Report.name, schema: ReportSchema, collection: 'reports' }])],
   providers: [{ provide: ReportRepository, useClass: ReportRepositoryInMongo }],
   exports: [ReportRepository]
 })
