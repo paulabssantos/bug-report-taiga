@@ -12,3 +12,30 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
       MONGO_INITDB_DATABASE: ${DB_NAME}
+    networks:
+      - nw_bug_report
+
+  api_bug_report:
+    container_name: api_bug_report_container
+    depends_on:
+      - mongodb_bug_report
+    image: node:latest
+    working_dir: /usr/src/bug_report_backend
+    restart: always
+    command: yarn prod
+    env_file:
+      - .env
+    volumes:
+      - ./dist/:/usr/src/bug_report_backend/dist
+      - ./tsconfig.json:/usr/src/bug_report_backend/tsconfig.json
+      - ./package.json:/usr/src/bug_report_backend/package.json
+      - ./uploads:/usr/src/bug_report_backend/uploads
+    ports:
+      - ${PORT}:3000
+    networks:
+      - nw_bug_report
+
+networks:
+  nw_bug_report:
+    driver: bridge
+    name: nw_bug_report
