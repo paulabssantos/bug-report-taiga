@@ -34,7 +34,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: 
-            cd /home/tutilabs/bug_report/bug_report_backend && docker-compose up -d         
+            cd /bug_report/bug_report_backend && docker-compose up -d         
           
           
           
