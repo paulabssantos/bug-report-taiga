@@ -2,8 +2,9 @@ import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ReportRepositoryInMongo } from './mongodb/repositories/ReportRepositoryInMongo';
-import { ReportRepository } from './mongodb/repositories/IReportRepositoryInMongo';
-import { Report, ReportSchema } from './mongodb/schemas/report.schema';
+import { ReportRepository } from './contracts/IReportRepository';
+import { ReportSchema } from './mongodb/schemas/report.schema';
+import { Report } from "../../../modules/report/entities/report.entity";
 
 @Global()
 @Module({

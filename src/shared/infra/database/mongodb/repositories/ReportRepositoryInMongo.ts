@@ -1,7 +1,7 @@
 import { CreateReportDTO } from "src/modules/report/dtos/create-report.dto";
-import { ReportRepository } from "./IReportRepositoryInMongo";
+import { ReportRepository } from "../../contracts/IReportRepository";
 import { InjectModel } from "@nestjs/mongoose";
-import { Report } from "../schemas/report.schema";
+import { Report } from "../../../../../modules/report/entities/report.entity";
 import { Model, Types } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { UpdateReportDTO } from "src/modules/report/dtos/update-report.dto";
