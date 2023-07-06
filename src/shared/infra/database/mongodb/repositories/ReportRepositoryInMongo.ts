@@ -18,7 +18,7 @@ export class ReportRepositoryInMongo implements ReportRepository {
             { $set: { done: true } }
         );
     }
-    async create(data: CreateReportDTO): Promise<Report & { _id: Types.ObjectId }> {
+    async create(data: CreateReportDTO): Promise<Report> {
         const createdReport = new this.reportModel(data)
         await createdReport.save()
         return createdReport

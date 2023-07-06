@@ -1,8 +1,11 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import * as dayjs from 'dayjs'
+import { ObjectId } from 'mongoose';
 
 @Schema()
 export class Report {
+  id: ObjectId;
+  
   @Prop()
   name: string;
 
