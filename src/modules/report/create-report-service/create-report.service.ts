@@ -22,6 +22,7 @@ export class CreateReportService {
             try {
                 await createUserStory(userStory, token)
             } catch (error) {
+                console.log(error)
             }
         })
     }

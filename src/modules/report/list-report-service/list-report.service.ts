@@ -23,6 +23,7 @@ export class ListReportService {
 
             }
         } catch (error) {
+            console.log(error)
         }
         const reports = await this.reportRepository.list(email)
 
