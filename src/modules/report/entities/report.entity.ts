@@ -4,8 +4,8 @@ import { ObjectId } from 'mongoose';
 
 @Schema()
 export class Report {
-  id: ObjectId;
-  
+  _id: ObjectId;
+
   @Prop()
   name: string;
 
