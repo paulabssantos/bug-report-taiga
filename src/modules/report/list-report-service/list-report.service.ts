@@ -13,7 +13,7 @@ export class ListReportService {
         try {
             let userReportsDone = []
             const userStoriesDone = await listUserStory(true, token)
-            if (userStoriesDone.length > 0) {
+            if (userStoriesDone && userStoriesDone.length > 0) {
                 await userStoriesDone.find((userStory) => {
                     if (userStory.subject.split(']')[0].slice(1) == email.split('@')[0]) {
                         userReportsDone.push({ id: userStory.subject.split(']')[1].slice(1) })
