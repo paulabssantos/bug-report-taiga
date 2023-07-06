@@ -11,14 +11,12 @@ export interface CreateUserStoryDTO {
 export const login = async() =>{
     return await taiga_instance.post('auth',{password: process.env.TAIGA_USER_PASSWORD, type: "normal", username: process.env.TAIGA_USER}).then((res)=>{
         return res.data
-    }).catch((err)=>{
     })
 }
 
 export const refreshToken = async(token: string) =>{
     return await taiga_instance.post('auth/refresh',{refresh: token}).then((res)=>{
         return res.data
-    }).catch((err)=>{
     })
 }
 export const createUserStory = async (userStory: CreateUserStoryDTO, token: string) => {
