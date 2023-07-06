@@ -1,6 +1,6 @@
 import { CreateReportDTO } from "src/modules/report/dtos/create-report.dto";
 import { UpdateReportDTO } from "src/modules/report/dtos/update-report.dto";
-import { Report } from "../schemas/report.schema";
+import { Report } from "../../../../modules/report/entities/report.entity";
 import { Types } from "mongoose";
 
 export abstract class ReportRepository{

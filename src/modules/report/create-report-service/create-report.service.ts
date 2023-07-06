@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReportDTO } from '../dtos/create-report.dto';
 import { CreateUserStoryDTO, createUserStory } from 'src/shared/http/api/api-taiga';
-import { ReportRepository } from 'src/shared/infra/database/mongodb/repositories/IReportRepositoryInMongo';
+import { ReportRepository } from 'src/shared/infra/database/contracts/IReportRepository';
 
 @Injectable()
 export class CreateReportService {

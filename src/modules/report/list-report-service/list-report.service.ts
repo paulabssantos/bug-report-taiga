@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { HttpStatusCode } from 'axios';
 import { listUserStory } from 'src/shared/http/api/api-taiga';
-import { ReportRepository } from 'src/shared/infra/database/mongodb/repositories/IReportRepositoryInMongo';
+import { ReportRepository } from 'src/shared/infra/database/contracts/IReportRepository';
 
 @Injectable()
 export class ListReportService {
