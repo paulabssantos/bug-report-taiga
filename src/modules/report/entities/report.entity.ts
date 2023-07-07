@@ -7,9 +7,6 @@ export class Report {
   _id: ObjectId;
 
   @Prop()
-  name: string;
-
-  @Prop()
   email: string;
 
   @Prop()
