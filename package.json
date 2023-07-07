@@ -21,6 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.8.1",
+    "@nestjs/cache-manager": "^2.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
@@ -30,6 +32,7 @@
     "@nestjs/serve-static": "^4.0.0",
     "@types/multer": "^1.4.7",
     "axios": "^1.4.0",
+    "cache-manager": "^5.2.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",

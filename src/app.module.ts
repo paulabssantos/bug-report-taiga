@@ -5,16 +5,20 @@ import { ConfigModule } from '@nestjs/config';
 import { TaigaLoginMiddleware } from './shared/http/middlewares/taiga-login.middleware';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { SystemModule } from './modules/system/system.module';
+import { MailModule } from './modules/mail/mail.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [ConfigModule.forRoot({
+  imports: [CacheModule.register({
+    isGlobal: true
+  }),ConfigModule.forRoot({
     isGlobal: true,
   }),
   ServeStaticModule.forRoot({
     rootPath: './uploads',
     serveRoot: '/uploads'
   }),
-    DatabaseModule, ReportModule, SystemModule],
+    DatabaseModule, ReportModule, SystemModule, MailModule],
   controllers: [],
   providers: [],
 })

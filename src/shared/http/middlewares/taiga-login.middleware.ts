@@ -1,38 +1,18 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Inject, Injectable, NestMiddleware, Res } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { login, refreshToken } from '../api/api-taiga';
-import * as dayjs from 'dayjs'
-
+import { login } from '../api/api-taiga';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from "cache-manager"
 @Injectable()
 export class TaigaLoginMiddleware implements NestMiddleware {
-  async use(req: Request, res: Response, next: NextFunction) {
-    if (!req.cookies['taiga-token-expiration']) {
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
+  async use(req: Request, @Res() res: Response, next: NextFunction) {
+    const taiga_token = await this.cacheManager.get('taiga-token')
+    if (!taiga_token) {
       try {
         const login_response = await login()
-        res.cookie('taiga-refresh', login_response.refresh)
-        res.cookie('taiga-token', login_response.auth_token)
-        res.cookie('taiga-token-expiration', dayjs(dayjs().format("YYYY-MM-DDTHH:mm:ss-00:00")).add(10, 'minute'))
+        await this.cacheManager.set('taiga-token', login_response.auth_token, 100000)
       } catch (error) {
-      } finally {
-        next()
-      }
-    }
-    else if (dayjs(dayjs().format("YYYY-MM-DDTHH:mm:ss-00:00")).diff(req.cookies['taiga-token-expiration'], 'minutes', true) >= 10) {
-      try {
-        const refresh_response = await refreshToken(req.cookies['taiga-refresh'])
-        res.cookie('taiga-refresh', refresh_response.refresh)
-        res.cookie('taiga-token', refresh_response.auth_token)
-        res.cookie('taiga-token-expiration', dayjs(dayjs().format("YYYY-MM-DDTHH:mm:ss-00:00")).add(10, 'minute'))
-      } catch (error) {
-        if (error.response.status != 429) {
-          try {
-            const login_response = await login()
-            res.cookie('taiga-refresh', login_response.refresh)
-            res.cookie('taiga-token', login_response.auth_token)
-            res.cookie('taiga-token-expiration', dayjs(dayjs().format("YYYY-MM-DDTHH:mm:ss-00:00")).add(10, 'minute'))
-          } catch (error) {
-          }
-        }
       } finally {
         next()
       }
