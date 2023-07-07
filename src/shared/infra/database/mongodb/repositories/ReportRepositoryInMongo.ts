@@ -5,6 +5,7 @@ import { Report } from "../../../../../modules/report/entities/report.entity";
 import { Model, Types } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { UpdateReportDTO } from "src/modules/report/dtos/update-report.dto";
+import * as dayjs from "dayjs";
 
 @Injectable()
 export class ReportRepositoryInMongo implements ReportRepository {
@@ -12,11 +13,13 @@ export class ReportRepositoryInMongo implements ReportRepository {
     async list(email: string): Promise<Report[]> {
         return await this.reportModel.find({ email }, {}, { sort: { date: 'desc' } })
     }
-    async updateDone(data: UpdateReportDTO[]): Promise<void> {
+    async updateDone(data: UpdateReportDTO[]): Promise<Report[]> {
         await this.reportModel.updateMany(
             { _id: { $in: data.map(item => Types.ObjectId.createFromHexString(item.id)) }, done: false },
-            { $set: { done: true } }
-        );
+            { $set: { done: true, updated_at: dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00') } }
+        )
+        const updatedReports = await this.reportModel.find({ _id: { $in: data.map(item => Types.ObjectId.createFromHexString(item.id)) }, done: true, updated_at:  { $gte: dayjs(dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')), $lt: dayjs(dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')).add(30,"minute")}})
+        return updatedReports
     }
     async create(data: CreateReportDTO): Promise<Report> {
         const createdReport = new this.reportModel(data)

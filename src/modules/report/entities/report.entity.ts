@@ -22,7 +22,10 @@ export class Report {
   done: boolean
 
   @Prop({default: dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')})
-  date: Date
+  created_at: Date
+
+  @Prop()
+  updated_at: Date
 
   @Prop()
   image_path: string;

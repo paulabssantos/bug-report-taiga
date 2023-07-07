@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { SendEmailReportService } from "./send-email-report/send-email-report.service"
 import { ConfigService } from '@nestjs/config';
+import { SendEmailDoneReportService } from './send-email-done-report/send-email-done-report.service';
 
 @Module({
   imports: [MailerModule.forRootAsync({
@@ -30,7 +31,7 @@ import { ConfigService } from '@nestjs/config';
       },
     }),
   })],
-  providers: [SendEmailReportService],
-  exports: [SendEmailReportService]
+  providers: [SendEmailReportService, SendEmailDoneReportService],
+  exports: [SendEmailReportService,SendEmailDoneReportService]
 })
 export class MailModule { }

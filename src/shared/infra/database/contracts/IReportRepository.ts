@@ -5,5 +5,5 @@ import { Report } from "../../../../modules/report/entities/report.entity";
 export abstract class ReportRepository{
     abstract create(data: CreateReportDTO):Promise<Report>
     abstract list(email: string):Promise<Report[]>
-    abstract updateDone(data:  UpdateReportDTO[]): Promise<void>
+    abstract updateDone(data:  UpdateReportDTO[]): Promise<Report[]>
 }

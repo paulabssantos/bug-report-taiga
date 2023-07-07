@@ -7,11 +7,13 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { SystemModule } from './modules/system/system.module';
 import { MailModule } from './modules/mail/mail.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [CacheModule.register({
+  imports: [ScheduleModule.forRoot(),
+  CacheModule.register({
     isGlobal: true
-  }),ConfigModule.forRoot({
+  }), ConfigModule.forRoot({
     isGlobal: true,
   }),
   ServeStaticModule.forRoot({
