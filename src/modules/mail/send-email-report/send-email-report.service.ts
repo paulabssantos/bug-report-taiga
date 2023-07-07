@@ -9,6 +9,7 @@ export class SendEmailReportService {
 
     async execute(file: Express.Multer.File, report: Report){
         this.mailer.sendMail({
+            from: process.env.MAIL_USER,
             to: process.env.MAIL_USER,
             subject: `Chamado [${report._id}][${report.system}]`,
             template: "reportCreation",
