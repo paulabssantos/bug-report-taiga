@@ -3,8 +3,10 @@ import { CreateReportService } from './create-report-service/create-report.servi
 import { CreateReportController } from './create-report-service/create-report.controller';
 import { ListReportController } from './list-report-service/list-report.controller';
 import { ListReportService } from './list-report-service/list-report.service';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
+  imports:[MailModule],
   controllers: [CreateReportController,ListReportController],
   providers: [CreateReportService,ListReportService],
 })
