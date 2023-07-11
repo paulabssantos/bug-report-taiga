@@ -1,3 +1,4 @@
+import { ReadStream } from "fs";
 import { taiga_instance } from "src/config/taiga-axios";
 import { TaigaException } from "src/shared/errors/taiga-exception";
 
@@ -6,6 +7,12 @@ export interface CreateUserStoryDTO {
     project: number,
     subject: string,
     tags: Array<string>,
+}
+
+export interface CreateAttachmentDTO{
+    object_id: number,
+    project: number,
+    attached_file: ReadStream
 }
 
 export const login = async() =>{
@@ -19,6 +26,15 @@ export const refreshToken = async(token: string) =>{
         return res.data
     })
 }
+
+export const createAttachment = async(attachment: CreateAttachmentDTO, token: string) =>{
+    return await taiga_instance.post("userstories/attachments",attachment,{
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'multipart/form-data'
+        }
+})}
+
 export const createUserStory = async (userStory: CreateUserStoryDTO, token: string) => {
     return await taiga_instance.post("userstories",userStory,{
         headers: {
