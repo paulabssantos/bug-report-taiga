@@ -1,6 +1,6 @@
 import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
-import { Report } from "../../report/entities/report.entity"
+import { Report } from "../../../report/entities/report.entity"
 import 'dotenv/config'
 
 @Injectable()

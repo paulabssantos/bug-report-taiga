@@ -4,7 +4,7 @@ import { Cron, CronExpression } from "@nestjs/schedule";
 import { listUserStory, login } from "src/shared/http/api/api-taiga";
 import { ReportRepository } from "src/shared/infra/database/contracts/IReportRepository";
 import {Cache} from "cache-manager"
-import { SendEmailDoneReportService } from "src/modules/mail/send-email-done-report/send-email-done-report.service";
+import { SendEmailDoneReportService } from "src/modules/mail/services/send-email-done-report/send-email-done-report.service";
 @Injectable()
 export class UpdateReportStatusService {
     constructor(private sendEmailDoneReportService: SendEmailDoneReportService, private reportRepository: ReportRepository, @Inject(CACHE_MANAGER) private cacheManager: Cache){}

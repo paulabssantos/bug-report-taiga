@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UploadedFile, UseInterceptors, Request, Inject } from '@nestjs/common';
 import { CreateReportService } from './create-report.service';
-import { CreateReportDTO } from '../dtos/create-report.dto';
+import { CreateReportDTO } from '../../dtos/create-report.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from 'src/config/multer';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
