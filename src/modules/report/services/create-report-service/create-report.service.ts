@@ -8,17 +8,16 @@ import * as fs from 'fs'
 @Injectable()
 export class CreateReportService {
     constructor(private reportRepository: ReportRepository, private sendEmailReport: SendEmailReportService) { }
-    async execute(createReportDto: CreateReportDTO, file: Express.Multer.File, token: string) {
-
+    async execute({description,email,system,title }: Omit<CreateReportDTO,"file">, file : Express.Multer.File, token: string) {
         try {
-            const createReportInDatabase = Object.assign(createReportDto, { image_path: file ? file.path : null })
+            const createReportInDatabase = Object.assign({description, email, system, title, file}, { image_path: file ? file.path : null })
             await this.reportRepository.create(createReportInDatabase).then(async (res) => {
                 const userStory: CreateUserStoryDTO = {
-                    description: `Email: ${createReportDto.email}\nDescrição do problema: ${createReportDto.description}\n`,
+                    description: `Email: ${email}\nDescrição do problema: ${description}\n`,
                     project: Number(process.env.TAIGA_PROJECT),
-                    subject: `[${createReportDto.email.toString().split('@')[0]}][${res._id.toString()}] ${createReportDto.title}`,
+                    subject: `[${email.toString().split('@')[0]}][${res._id.toString()}] ${title}`,
                     tags: [
-                        createReportDto.system,
+                        system,
                     ]
                 }
 
