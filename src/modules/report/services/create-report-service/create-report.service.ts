@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateReportDTO } from '../dtos/create-report.dto';
 import { CreateAttachmentDTO, CreateUserStoryDTO, createAttachment, createUserStory } from 'src/shared/http/api/api-taiga';
 import { ReportRepository } from 'src/shared/infra/database/contracts/IReportRepository';
-import { SendEmailReportService } from 'src/modules/mail/send-email-report/send-email-report.service';
+import { SendEmailReportService } from 'src/modules/mail/services/send-email-report/send-email-report.service';
 import * as fs from 'fs'
 
 @Injectable()
