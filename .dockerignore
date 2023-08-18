@@ -1,0 +1,5 @@
+node_modules
+mongo_db
+dist
+.prettierrc
+.eslintrc.js

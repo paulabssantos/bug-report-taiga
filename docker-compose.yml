@@ -5,7 +5,7 @@ services:
     image: mongo
     restart: always
     volumes:
-      - mongo_db:/data/db
+      - vol_db_bug_report:/data/db
     ports:
       - ${DB_PORT}:27017
     environment:
@@ -19,17 +19,14 @@ services:
     container_name: api_bug_report_container
     depends_on:
       - mongodb_bug_report
-    image: node:latest
-    working_dir: /usr/src/bug_report_backend
     restart: always
-    command: yarn prod
+    build: 
+      context: .
+      dockerfile: Dockerfile
     env_file:
       - .env
     volumes:
-      - ./dist/:/usr/src/bug_report_backend/dist
-      - ./tsconfig.json:/usr/src/bug_report_backend/tsconfig.json
-      - ./package.json:/usr/src/bug_report_backend/package.json
-      - ./uploads:/usr/src/bug_report_backend/uploads
+      - vol_images_bug_report:/usr/src/bug_report_backend/uploads
     ports:
       - ${PORT}:3000
     networks:
@@ -40,4 +37,7 @@ networks:
     driver: bridge
 
 volumes:
-  mongo_db:
+  vol_images_bug_report:
+    driver: local
+  vol_db_bug_report:
+    driver: local
