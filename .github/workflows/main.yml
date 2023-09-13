@@ -22,9 +22,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
           source: ". , !node_modules"
-          target: "bug_report/bug_report_backend"
+          target: "/home/tutilabs/bug_report/bug_report_backend"
           
       - name : Update API
         uses: appleboy/ssh-action@master
@@ -32,7 +31,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
           script: 
             cd /home/tutilabs/bug_report/bug_report_backend && docker-compose up -d         
           
