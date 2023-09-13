@@ -14,10 +14,13 @@ export class ReportRepositoryInMongo implements ReportRepository {
         return await this.reportModel.find({ email }, {}, { sort: { date: 'desc' } })
     }
     async updateDone(data: UpdateReportDTO[]): Promise<Report[]> {
-        await this.reportModel.updateMany(
-            { _id: { $in: data.map(item => Types.ObjectId.createFromHexString(item.id)) }, done: false },
-            { $set: { done: true, updated_at: dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00') } }
-        )
+        data.map(async item => {
+            await this.reportModel.updateMany(
+                {_id: Types.ObjectId.createFromHexString(item.id),done: false},
+                {$set: {done: true, updated_at: dayjs(item.finished_date).format('YYYY-MM-DDTHH:mm:ss-00:00')}}
+                
+                )
+        })
         const updatedReports = await this.reportModel.find({ _id: { $in: data.map(item => Types.ObjectId.createFromHexString(item.id)) }, done: true, updated_at:  { $gte: dayjs(dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')), $lt: dayjs(dayjs().format('YYYY-MM-DDTHH:mm:ss-00:00')).add(30,"minute")}})
         return updatedReports
     }
