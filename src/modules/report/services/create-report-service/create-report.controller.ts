@@ -17,8 +17,8 @@ export class CreateReportController {
     @ApiBody({ type: CreateReportDTO })
     @Post()
     @UseInterceptors(FileInterceptor('file', multerConfig))
-    async create(@Request() req, @Body() { description, email, system, title }: Omit<CreateReportDTO,"file">, @UploadedFile() file : Express.Multer.File) {
+    async create(@Body() { description, email, system, title }: Omit<CreateReportDTO,"file">, @UploadedFile() file : Express.Multer.File) {
         const token: string = await this.cacheManager.get('taiga-token')
-        return this.createReportService.execute({ description, email, system, title }, file, "token")
+        return this.createReportService.execute({ description, email, system, title }, file, token)
     }
 }
