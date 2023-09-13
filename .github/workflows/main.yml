@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: 
-            cd /bug_report/bug_report_backend && docker-compose up -d         
+            cd /home/tutilabs/bug_report/bug_report_backend && docker-compose up -d         
           
           
           
