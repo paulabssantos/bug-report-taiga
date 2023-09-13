@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { SwaggerModule } from '@nestjs/swagger';
 import { swagger_config } from './config/swagger';
+import 'dotenv/config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{cors: true});
@@ -12,6 +13,6 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
   
   app.use(cookieParser());
-  await app.listen(3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
