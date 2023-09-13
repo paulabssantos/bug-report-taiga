@@ -24,7 +24,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: ". , !node_modules"
-          target: "/bug_report/bug_report_backend"
+          target: "/home/tutilabs/bug_report/"
           
       - name : Update API
         uses: appleboy/ssh-action@master
