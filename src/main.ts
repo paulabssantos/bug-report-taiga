@@ -13,6 +13,6 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
   
   app.use(cookieParser());
-  await app.listen(process.env.PORT);
+  await app.listen(3000);
 }
 bootstrap();
