@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           source: ". , !node_modules"
-          target: "/bug_report"
+          target: "/home/tutilabs/bug_report/bug_report_backend"
           
       - name : Update API
         uses: appleboy/ssh-action@master
